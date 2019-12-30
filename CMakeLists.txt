@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.2)
 project( isclient )
  
+set(CMAKE_CXX_STANDARD 14)
+
+add_subdirectory(glog)
+
 # 设置用debug还是release模式。debug允许断点，而release更快
 #set( CMAKE_BUILD_TYPE Debug )
 set( CMAKE_BUILD_TYPE Release )
@@ -28,14 +32,12 @@ list(APPEND SERVER_SRCS
  
 # 库文件目录
 link_directories(
-    #${PROJECT_SOURCE_DIR}/libs/x86/handy
-    # ${PROJECT_SOURCE_DIR}/libs/x86/spdlog
+    ${PROJECT_SOURCE_DIR}/build/glog
 )
 
 # 头文件目录
 include_directories (
-    #${PROJECT_SOURCE_DIR}/include/handy
-    #${PROJECT_SOURCE_DIR}/include/spdlog
+    ${PROJECT_SOURCE_DIR}/build/glog/glog
 )
 
 # #server Static library
@@ -50,4 +52,4 @@ include_directories (
 
 
 add_executable(isclient ${SERVER_SRCS})
-target_link_libraries(isclient)
+target_link_libraries(isclient glog)
